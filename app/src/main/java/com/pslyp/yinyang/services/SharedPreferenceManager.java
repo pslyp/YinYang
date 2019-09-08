@@ -52,6 +52,10 @@ public class SharedPreferenceManager {
         this.editor.putString(key, value);
     }
 
+    public Boolean getBoolean(String key, Boolean b) {
+        return this.sp.getBoolean(key, b);
+    }
+
     public void clear() {
         this.editor.clear();
     }
