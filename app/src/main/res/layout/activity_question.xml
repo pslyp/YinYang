@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:gravity="center_horizontal"
-    tools:context=".QuestionActivity">
+    tools:context=".activities.QuestionActivity">
 
     <LinearLayout
         android:id="@+id/linear_layout_1"

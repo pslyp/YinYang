@@ -1,4 +1,4 @@
-package com.pslyp.yinyang;
+package com.pslyp.yinyang.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,9 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.pslyp.yinyang.R;
 import com.pslyp.yinyang.services.SharedPreferenceManager;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
 //    private SharedPreferences sp;
 //    private SharedPreferences.Editor editor;
