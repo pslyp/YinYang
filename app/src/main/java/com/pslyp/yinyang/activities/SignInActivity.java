@@ -56,6 +56,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         passwordEditText = findViewById(R.id.password_edit_text);
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
+        signUpButton = findViewById(R.id.sign_up_button);
+        signUpButton.setOnClickListener(this);
     }
 
     private void signIn() {

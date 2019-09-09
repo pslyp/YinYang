@@ -14,6 +14,15 @@ import retrofit2.http.POST;
 public interface Service {
 
     @FormUrlEncoded
+    @POST("register.php")
+    Call<Response> signUp(
+            @Field("username") String username,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("picture") String picture
+    );
+
+    @FormUrlEncoded
     @POST("login.php")
     Call<Response> signIn(
             @Field("email") String email,
