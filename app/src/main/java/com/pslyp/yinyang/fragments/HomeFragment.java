@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.pslyp.yinyang.R;
@@ -16,6 +17,7 @@ import com.pslyp.yinyang.adapter.MenuAdapter;
 import com.pslyp.yinyang.models.Menu;
 import com.pslyp.yinyang.services.api.RetrofitClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,7 +29,10 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment {
 
+    private MenuAdapter adapter;
+
     private ListView menuListView;
+    private List<Menu> mCurrentData = new ArrayList<Menu>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,8 +58,11 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
                 List<Menu> menuList = response.body();
 
-                MenuAdapter adapter = new MenuAdapter(getContext(), R.layout.listview_row, menuList);
+//                mCurrentData = menuList;
 
+//                setData(menuList);
+
+                adapter = new MenuAdapter(getContext(), R.layout.listview_row, menuList);
                 menuListView.setAdapter(adapter);
             }
 
@@ -63,6 +71,27 @@ public class HomeFragment extends Fragment {
                 Log.e("Menu", t.getMessage());
             }
         });
+
+//        MenuAdapter adapter = new MenuAdapter(getContext(), R.layout.listview_row, mCurrentData);
+//        menuListView.setAdapter(adapter);
+
+        menuListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+//                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void setData(List<Menu> menuList) {
+        for(int i=0; i<=menuList.size(); i++) {
+            mCurrentData = menuList;
+        }
     }
 
 }

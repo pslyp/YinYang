@@ -31,4 +31,11 @@ public interface Service {
 
     @GET("getmenu-non.php")
     Call<List<Menu>> getMenu();
+
+    @FormUrlEncoded
+    @POST("update_favorite.php")
+    Call<Response> updateFavorite(
+            @Field("id") String id,
+            @Field("favorite") String favorite
+    );
 }
