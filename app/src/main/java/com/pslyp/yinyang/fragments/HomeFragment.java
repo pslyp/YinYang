@@ -1,6 +1,7 @@
 package com.pslyp.yinyang.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.pslyp.yinyang.R;
+import com.pslyp.yinyang.activities.MenuDetailsActivity;
 import com.pslyp.yinyang.adapter.MenuAdapter;
 import com.pslyp.yinyang.models.Menu;
 import com.pslyp.yinyang.services.api.RetrofitClient;
@@ -29,10 +33,10 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment {
 
-    private MenuAdapter adapter;
+//    private MenuAdapter adapter;
 
     private ListView menuListView;
-    private List<Menu> mCurrentData = new ArrayList<Menu>();
+    private List<Menu> mCurrentData = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -58,11 +62,11 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
                 List<Menu> menuList = response.body();
 
-//                mCurrentData = menuList;
+                mCurrentData = menuList;
 
 //                setData(menuList);
 
-                adapter = new MenuAdapter(getContext(), R.layout.listview_row, menuList);
+                MenuAdapter adapter = new MenuAdapter(getContext(), R.layout.listview_row, mCurrentData);
                 menuListView.setAdapter(adapter);
             }
 
@@ -75,15 +79,32 @@ public class HomeFragment extends Fragment {
 //        MenuAdapter adapter = new MenuAdapter(getContext(), R.layout.listview_row, mCurrentData);
 //        menuListView.setAdapter(adapter);
 
-        menuListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-//                adapter.notifyDataSetChanged();
-            }
+//        menuListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+////                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//                int lastItemInScree = firstVisibleItem + visibleItemCount;
+//
+//
+//
+////                adapter.notifyDataSetChanged();
+//            }
+//        });
 
+        menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                adapter.notifyDataSetChanged();
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Menu menu =
+
+                Intent intent = new Intent(getContext(), MenuDetailsActivity.class);
+                intent.putExtra("position", String.valueOf(i));
+                startActivity(intent);
+
+                Toast.makeText(getContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
             }
         });
     }

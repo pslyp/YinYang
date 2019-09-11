@@ -45,21 +45,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        SharedPreferenceManager spm = new SharedPreferenceManager.Builder(this)
-                .name("Login")
-                .mode(MODE_PRIVATE)
-                .build();
-
-        if(!spm.getBoolean("SIGNIN", false)) {
-            startActivity(new Intent(MainActivity.this, SignInActivity.class));
-            finish();
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         super.onBackPressed();
 
@@ -131,6 +116,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void initInstance() {
 //        toolbar = getSupportActionBar();
+
+        SharedPreferenceManager spm = new SharedPreferenceManager.Builder(this)
+                .name("Login")
+                .mode(MODE_PRIVATE)
+                .build();
+
+        if(!spm.getBoolean("SIGNIN", false)) {
+            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            finish();
+        }
 
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);

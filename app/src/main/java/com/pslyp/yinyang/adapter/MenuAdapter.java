@@ -56,27 +56,27 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
         TextView yin = view.findViewById(R.id.yin_text_view);
         TextView yang = view.findViewById(R.id.yang_text_view);
         CircularImageView image = view.findViewById(R.id.pic_circle_image);
-        final ToggleButton favorite = view.findViewById(R.id.favorite_toggle_button);
-        setFavoriteButton(favorite, menu.getFavorite());
-
-        favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    favorite.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
-
-                    updateFavorite(view, menu.getId(), "1");
-
-                    Toast.makeText(mContext, menu.getName() + "Favorite", Toast.LENGTH_SHORT).show();
-                } else {
-                    favorite.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
-
-                    updateFavorite(view, menu.getId(), "0");
-
-                    Toast.makeText(mContext, menu.getName() + "None Favorite", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        final ToggleButton favorite = view.findViewById(R.id.favorite_toggle_button);
+//        setFavoriteButton(favorite, menu.getFavorite());
+//
+//        favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                if(isChecked) {
+//                    favorite.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+//
+//                    updateFavorite(view, menu.getId(), "1");
+//
+//                    Toast.makeText(mContext, menu.getName() + "Favorite", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    favorite.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+//
+//                    updateFavorite(view, menu.getId(), "0");
+//
+//                    Toast.makeText(mContext, menu.getName() + "None Favorite", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         name.setText(menu.getName());
         category.setText(menu.getCategory());

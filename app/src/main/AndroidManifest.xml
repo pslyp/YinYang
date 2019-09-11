@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pslyp.yinyang">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SignUpActivity"></activity>
+        <activity android:name=".activities.MenuDetailsActivity"></activity>
+        <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.QuestionActivity" />
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".activities.MainActivity">
@@ -23,5 +22,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
