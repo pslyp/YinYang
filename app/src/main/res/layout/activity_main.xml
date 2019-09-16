@@ -9,11 +9,17 @@
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/frame_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+<!--    <include-->
+<!--        android:id="@+id/app_bar"-->
+<!--        layout="@layout/app_bar"/>-->
+
+<!--    <FrameLayout-->
+<!--        android:id="@+id/frame_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
+    <include layout="@layout/layout_main"/>
     
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

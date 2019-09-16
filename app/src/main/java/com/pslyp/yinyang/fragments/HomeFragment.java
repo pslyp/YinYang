@@ -4,6 +4,8 @@ package com.pslyp.yinyang.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -35,6 +37,8 @@ public class HomeFragment extends Fragment {
 
 //    private MenuAdapter adapter;
 
+    private Toolbar toolbar;
+
     private ListView menuListView;
     private List<Menu> mCurrentData = new ArrayList<>();
 
@@ -54,6 +58,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void initInstance(View view) {
+        toolbar = view.findViewById(R.id.app_bar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
         menuListView = view.findViewById(R.id.menu_list_view);
 
         Call<List<Menu>> call = RetrofitClient.getInstance().api().getMenu();

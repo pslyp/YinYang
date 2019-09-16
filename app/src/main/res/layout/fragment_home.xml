@@ -6,9 +6,13 @@
     tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <include
+        layout="@layout/app_bar"
+        android:id="@+id/app_bar"/>
+
     <ListView
         android:id="@+id/menu_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

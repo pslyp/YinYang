@@ -3,6 +3,7 @@ package com.pslyp.yinyang.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,7 +28,6 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private ActionBar toolbar;
     private BottomNavigationView navView;
 
     private Timer _timer = new Timer();
@@ -115,8 +115,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void initInstance() {
-//        toolbar = getSupportActionBar();
-
         SharedPreferenceManager spm = new SharedPreferenceManager.Builder(this)
                 .name("Login")
                 .mode(MODE_PRIVATE)
@@ -135,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void loadFirstFragment() {
-        getSupportActionBar().setTitle("Home");
+//        getSupportActionBar().setTitle("Home");
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, new HomeFragment());
         transaction.commit();
