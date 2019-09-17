@@ -9,16 +9,6 @@
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
-<!--    <include-->
-<!--        android:id="@+id/app_bar"-->
-<!--        layout="@layout/app_bar"/>-->
-
-<!--    <FrameLayout-->
-<!--        android:id="@+id/frame_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
-
     <include layout="@layout/layout_main"/>
     
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,6 +18,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
+        app:itemIconTint="#000000"
+        app:itemTextColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

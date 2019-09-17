@@ -95,19 +95,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //        Fragment fragment;
         switch (menuItem.getItemId()) {
             case R.id.nav_home :
-                getSupportActionBar().setTitle("Home");
+//                getSupportActionBar().setTitle("Home");
                 loadFragment(new HomeFragment());
                 return true;
             case R.id.nav_search :
-                getSupportActionBar().setTitle("Search");
+//                getSupportActionBar().setTitle("Search");
                 loadFragment(new SearchFragment());
                 return true;
             case R.id.nav_graph :
-                getSupportActionBar().setTitle("Graph");
+//                getSupportActionBar().setTitle("Graph");
                 loadFragment(new GraphFragment());
                 return true;
             case R.id.nav_me :
-                getSupportActionBar().setTitle("Me");
+//                getSupportActionBar().setTitle("Me");
                 loadFragment(new MeFragment());
                 return true;
         }
