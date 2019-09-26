@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.pslyp.yinyang.R;
+import com.pslyp.yinyang.models.Menu;
 import com.pslyp.yinyang.services.api.RetrofitClient;
 
 import retrofit2.Call;
@@ -29,12 +30,8 @@ public class MenuDetailsActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        Intent intent = getIntent();
-        String position = intent.getStringExtra("position");
+        Menu detail = (Menu) getIntent().getSerializableExtra("DETAIL");
 
-//        Call<Menu> call = RetrofitClient.getInstance().api().
-
-
-
+        nameTextView.setText(detail.getName());
     }
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -23,13 +24,14 @@ import android.widget.Toast;
 
 import com.pslyp.yinyang.R;
 import com.pslyp.yinyang.activities.MenuDetailsActivity;
-import com.pslyp.yinyang.adapter.MenuAdapter;
 import com.pslyp.yinyang.adapter.MenuRecyclerAdapter;
 import com.pslyp.yinyang.models.Menu;
 import com.pslyp.yinyang.services.api.RetrofitClient;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,8 +51,8 @@ public class HomeFragment extends Fragment {
     private ActionBar actionBar;
     private Toolbar toolbar;
 
-    private ListView menuListView;
-    private List<Menu> mCurrentData = new ArrayList<>();
+//    private ListView menuListView;
+    private List<Menu> mMenuList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -88,7 +90,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setStackFromEnd(true);
+//        linearLayoutManager.setStackFromEnd(true);
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -97,10 +99,19 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<List<Menu>>() {
             @Override
             public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
-                List<Menu> menuList = response.body();
+                mMenuList = response.body();
 
-                MenuRecyclerAdapter adapter = new MenuRecyclerAdapter(getContext(), menuList);
+                MenuRecyclerAdapter adapter = new MenuRecyclerAdapter(getContext(), mMenuList);
                 recyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickListener(new MenuRecyclerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Menu item) {
+                        Intent intent = new Intent(getContext(), MenuDetailsActivity.class);
+                        intent.putExtra("DETAIL", (Parcelable) item);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override

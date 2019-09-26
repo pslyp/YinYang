@@ -78,6 +78,8 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
 //            }
 //        });
 
+
+
         name.setText(menu.getName());
         category.setText(menu.getCategory());
         yin.setText(menu.getYhin());

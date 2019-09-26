@@ -49,8 +49,8 @@
 
         <ToggleButton
             android:id="@+id/favorite_toggle_button"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
             android:layout_marginRight="24dp"
             android:textOff=""
             android:textOn=""

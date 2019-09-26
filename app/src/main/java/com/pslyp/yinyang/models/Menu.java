@@ -1,6 +1,8 @@
 package com.pslyp.yinyang.models;
 
-public class Menu {
+import android.os.Parcelable;
+
+public class Menu implements Parcelable {
 
     private String id;
     private String name;
@@ -10,9 +12,9 @@ public class Menu {
     private String ingredient;
     private String howto;
     private String image;
-    private String favorite;
+    private int favorite;
 
-    public Menu(String id, String name, String num_yhin, String num_yhang, String category, String ingredient, String howto, String image, String favorite) {
+    public Menu(String id, String name, String num_yhin, String num_yhang, String category, String ingredient, String howto, String image, int favorite) {
         this.id = id;
         this.name = name;
         this.num_yhin = num_yhin;
@@ -56,7 +58,7 @@ public class Menu {
         return image;
     }
 
-    public String getFavorite() {
+    public int getFavorite() {
         return favorite;
     }
 }
