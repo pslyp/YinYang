@@ -1,14 +1,12 @@
 package com.pslyp.yinyang.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -16,12 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.pslyp.yinyang.R;
-import com.pslyp.yinyang.activities.MenuDetailsActivity;
 import com.pslyp.yinyang.models.Menu;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.Optional;
 
 public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.ViewHolder> {
 

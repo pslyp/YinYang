@@ -44,12 +44,44 @@ public class SharedPreferenceManager {
         this.editor = sp.edit();
     }
 
-    public void putBoolean(String key, Boolean b) {
-        this.editor.putBoolean(key, b);
+    public void putFloat(String key, Float f) {
+        this.editor.putFloat(key, f);
+    }
+
+    public void putInt(String key, int i) {
+        this.editor.putInt(key, i);
+    }
+
+    public void putLong(String key, Long l) {
+        this.editor.putLong(key, l);
     }
 
     public void putString(String key, String value) {
         this.editor.putString(key, value);
+    }
+
+    //    public void putStringSet(String key) {
+//        this.editor.putStringSet();
+//    }
+
+    public void putBoolean(String key, Boolean b) {
+        this.editor.putBoolean(key, b);
+    }
+
+    public Float getFloat(String key, Float f) {
+        return this.sp.getFloat(key, f);
+    }
+
+    public Integer getInt(String key, Integer i) {
+        return this.sp.getInt(key, i);
+    }
+
+    public Long getLong(String key, Long l) {
+        return this.getLong(key, l);
+    }
+
+    public String getString(String key, String value) {
+        return this.sp.getString(key, value);
     }
 
     public Boolean getBoolean(String key, Boolean b) {

@@ -1,5 +1,6 @@
 package com.pslyp.yinyang.models;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Menu implements Parcelable {
@@ -25,6 +26,30 @@ public class Menu implements Parcelable {
         this.image = image;
         this.favorite = favorite;
     }
+
+    protected Menu(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        num_yhin = in.readString();
+        num_yhang = in.readString();
+        category = in.readString();
+        ingredient = in.readString();
+        howto = in.readString();
+        image = in.readString();
+        favorite = in.readInt();
+    }
+
+    public static final Creator<Menu> CREATOR = new Creator<Menu>() {
+        @Override
+        public Menu createFromParcel(Parcel in) {
+            return new Menu(in);
+        }
+
+        @Override
+        public Menu[] newArray(int size) {
+            return new Menu[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -60,5 +85,23 @@ public class Menu implements Parcelable {
 
     public int getFavorite() {
         return favorite;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(num_yhin);
+        parcel.writeString(num_yhang);
+        parcel.writeString(category);
+        parcel.writeString(ingredient);
+        parcel.writeString(howto);
+        parcel.writeString(image);
+        parcel.writeInt(favorite);
     }
 }

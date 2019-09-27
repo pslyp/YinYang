@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
     private ActionBar actionBar;
     private Toolbar toolbar;
 
-//    private ListView menuListView;
+    //    private ListView menuListView;
     private List<Menu> mMenuList;
 
     public HomeFragment() {
@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onItemClick(Menu item) {
                         Intent intent = new Intent(getContext(), MenuDetailsActivity.class);
-                        intent.putExtra("DETAIL", (Parcelable) item);
+                        intent.putExtra("DETAIL", item);
                         startActivity(intent);
                     }
                 });

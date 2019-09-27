@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,12 +29,18 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private HomeFragment homeFragment = new HomeFragment();
+    private SearchFragment searchFragment = new SearchFragment();
+    private GraphFragment graphFragment = new GraphFragment();
+    private MeFragment meFragment = new MeFragment();
+
     private BottomNavigationView navView;
+
+    private TextView toolbarText;
 
     private Timer _timer = new Timer();
     private TimerTask timer;
 
-//    private CountDownTimer timer;
     private byte click = 0;
 
     @Override
@@ -46,48 +53,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        int selectItemId = navView.getSelectedItemId();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragmentManager.getBackStackEntryCount() != 0)
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        if(R.id.nav_home != selectItemId) {
+            loadFragment(homeFragment);
+            navView.setSelectedItemId(R.id.nav_home);
+        }
 
-        navView.setSelectedItemId(R.id.nav_home);
+        if(R.id.nav_home == selectItemId) {
+            Toast.makeText(this, "กด 'กลับ' อีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, "กด 'กลับ' อีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show();
+            click++;
+            if (click == 2)
+//                finish();
+                super.onBackPressed();
 
-        click++;
-        if(click == 2)
-            finish();
+            timer = new TimerTask() {
+                @Override
+                public void run() {
+                    click = 0;
+                    timer.cancel();
+                }
+            };
 
-        timer = new TimerTask() {
-            @Override
-            public void run() {
-                click = 0;
-                timer.cancel();
-            }
-        };
-
-        _timer.schedule(timer, 1000);
-
-//        click++;
-//        timer = new CountDownTimer(2000, 1) {
-//            @Override
-//            public void onTick(long l) {
-//                Log.e("Timer", Long.toString(l));
-//
-//                if(click == 2)
-//                    finish();
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                Toast.makeText(MainActivity.this, "Finish", Toast.LENGTH_SHORT).show();
-//
-//                click = 0;
-//                timer.cancel();
-//            }
-//        }.start();
+            _timer.schedule(timer, 1000);
+        }
     }
 
     @Override
@@ -95,20 +85,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //        Fragment fragment;
         switch (menuItem.getItemId()) {
             case R.id.nav_home :
-//                getSupportActionBar().setTitle("Home");
-                loadFragment(new HomeFragment());
+                toolbarText.setText("Home");
+                loadFragment(homeFragment);
                 return true;
             case R.id.nav_search :
-//                getSupportActionBar().setTitle("Search");
-                loadFragment(new SearchFragment());
+                toolbarText.setText("Search");
+                loadFragment(searchFragment);
                 return true;
             case R.id.nav_graph :
-//                getSupportActionBar().setTitle("Graph");
-                loadFragment(new GraphFragment());
+                toolbarText.setText("Graph");
+                loadFragment(graphFragment);
                 return true;
             case R.id.nav_me :
-//                getSupportActionBar().setTitle("Me");
-                loadFragment(new MeFragment());
+                toolbarText.setText("Me");
+                loadFragment(meFragment);
                 return true;
         }
         return false;
@@ -125,25 +115,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             finish();
         }
 
+        toolbarText = findViewById(R.id.text_toolbar);
+
+//        Toolbar toolbar = findViewById(R.id.app_bar);
+//        toolbar.
+
         navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);
 
 //        toolbar.setTitle("Home");
-        loadFirstFragment();
-    }
-
-    private void loadFirstFragment() {
-//        getSupportActionBar().setTitle("Home");
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, new HomeFragment());
-        transaction.commit();
+//        loadFirstFragment();
+        loadFragment(homeFragment);
+        toolbarText.setText("Home");
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        if(fragment != null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_container, fragment);
+//        transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
 }

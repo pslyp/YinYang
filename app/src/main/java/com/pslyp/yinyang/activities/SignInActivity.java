@@ -61,7 +61,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signIn() {
-        String email = emailEditText.getText().toString();
+        final String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
         Call<Response> call = RetrofitClient.getInstance().api().signIn(email, password);
@@ -74,6 +74,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     if(res.getMessage().equals("success")) {
                         spm.edit();
                         spm.putBoolean("SIGNIN", true);
+                        spm.putString("EMAIL", email);
                         spm.commit();
 
                         startActivity(new Intent(SignInActivity.this, MainActivity.class));

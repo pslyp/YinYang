@@ -2,6 +2,7 @@ package com.pslyp.yinyang.services.api;
 
 import com.pslyp.yinyang.models.Menu;
 import com.pslyp.yinyang.models.Response;
+import com.pslyp.yinyang.models.User;
 
 import java.util.List;
 
@@ -37,5 +38,11 @@ public interface Service {
     Call<Response> updateFavorite(
             @Field("id") String id,
             @Field("favorite") String favorite
+    );
+
+    @FormUrlEncoded
+    @POST("get_profile.php")
+    Call<User> getProfile(
+            @Field("email") String email
     );
 }
