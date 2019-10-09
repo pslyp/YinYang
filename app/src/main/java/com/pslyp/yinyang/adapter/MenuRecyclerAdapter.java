@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -15,14 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.pslyp.yinyang.R;
 import com.pslyp.yinyang.models.Menu;
+import com.pslyp.yinyang.models.Response;
+import com.pslyp.yinyang.services.SharedPreferenceManager;
+import com.pslyp.yinyang.services.api.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Menu> mMenuList;
+    private SharedPreferenceManager manager;
 
     private String url = "http://pilot.cp.su.ac.th/usr/u07580536/yhinyhang/images/menu/";
 
@@ -41,6 +50,14 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.recyclerview_row_home, parent, false);
+
+        manager = new SharedPreferenceManager.Builder(mContext)
+                .name("Favorite")
+                .mode(mContext.MODE_PRIVATE)
+                .build();
+
+        manager.edit();
+
         return new ViewHolder(view);
     }
 
@@ -48,20 +65,25 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Menu menu = mMenuList.get(position);
 
+        holder.menu = menu;
         holder.nameText.setText(menu.getName());
         holder.categoryText.setText(menu.getCategory());
         holder.yinText.setText(menu.getYhin());
         holder.yangText.setText(menu.getYhang());
         Picasso.get().load(url.concat(menu.getImage())).into(holder.imageMenu);
 
-        setFavoriteToggle(holder.favoriteToggle, menu.getFavorite());
-
+        holder.setFavoriteToggle();
         holder.bind(menu, mListener);
     }
 
     @Override
     public int getItemCount() {
         return mMenuList.size();
+    }
+
+    public void filterList(ArrayList arrayList) {
+        this.mMenuList = arrayList;
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -73,6 +95,8 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
         public TextView nameText, categoryText, yinText, yangText;
         public CircularImageView imageMenu;
         public ToggleButton favoriteToggle;
+
+        public Menu menu;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,30 +117,75 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<MenuRecyclerAdapte
                 }
             });
         }
-    }
 
-    private void setFavoriteToggle(final ToggleButton toggle, int favorite) {
-        if(favorite == 0) {
-            toggle.setChecked(false);
-            toggle.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
-        } else {
-            toggle.setChecked(true);
-            toggle.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+        public void setFavoriteToggle() {
+            if (menu.getFavorite() == 0) {
+                favoriteToggle.setChecked(false);
+                favoriteToggle.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+
+//            manager.putInt(menu.getId(), 0);
+            } else {
+                favoriteToggle.setChecked(true);
+                favoriteToggle.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+
+//            manager.putInt(menu.getId(), 1);
+            }
+
+            favoriteToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        favoriteToggle.setChecked(true);
+                        favoriteToggle.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+
+                        manager.putInt(menu.getId(), 1);
+                        manager.commit();
+
+                        menu.setFavorite(1);
+
+                        updateFavorite(1);
+
+                        Log.e("Toggle", String.valueOf(favoriteToggle.isChecked()));
+                    } else {
+                        favoriteToggle.setChecked(false);
+                        favoriteToggle.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+
+                        manager.putInt(menu.getId(), 0);
+                        manager.commit();
+
+                        menu.setFavorite(0);
+
+                        updateFavorite(0);
+
+                        Log.e("Toggle", String.valueOf(favoriteToggle.isChecked()));
+                    }
+                }
+            });
         }
 
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    toggle.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+        private void updateFavorite(final Integer favorite) {
+            Call<Response> call = RetrofitClient.getInstance().api().updateFavorite(menu.getId(), favorite);
+            call.enqueue(new Callback<Response>() {
+                @Override
+                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                    Response res = response.body();
 
-                    Log.e("Toggle", String.valueOf(toggle.isChecked()));
-                } else {
-                    toggle.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
-
-                    Log.e("Toggle", String.valueOf(toggle.isChecked()));
+                    if(res.getStatus() == 200) {
+                        if(res.getMessage().equals("success")) {
+//                            if(favorite == 0)
+//                                Toast.makeText(mContext, "เลิกถูกใจ", Toast.LENGTH_SHORT).show();
+//                            else
+//                                Toast.makeText(mContext, "ถูกใจ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-            }
-        });
+
+                @Override
+                public void onFailure(Call<Response> call, Throwable t) {
+                    Log.e("Update Favorite", t.getMessage());
+                }
+            });
+        }
     }
+
 }

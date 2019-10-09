@@ -100,7 +100,7 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
         }
     }
 
-    private void updateFavorite(final View view, String id, String favorite) {
+    private void updateFavorite(final View view, String id, Integer favorite) {
         Call<Response> call = RetrofitClient.getInstance().api().updateFavorite(id, favorite);
         call.enqueue(new Callback<Response>() {
             @Override

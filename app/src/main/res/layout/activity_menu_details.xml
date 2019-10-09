@@ -19,9 +19,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <!--            <com.mikhaellopez.circularimageview.CircularImageView-->
             <!--                android:id="@+id/pic_image_view"-->
@@ -32,8 +32,8 @@
 
             <ImageView
                 android:id="@+id/pic_image_view"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
                 android:src="@drawable/ic_account_circle_black_24dp" />
 
             <TextView
@@ -45,39 +45,16 @@
                 android:textSize="25dp" />
 
             <LinearLayout
-                android:id="@+id/ingredient_linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/margin_padding"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/ingredient_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ingredient"
-                    android:textSize="16dp" />
+                <include layout="@layout/ingredient_expansion_panel_layout" />
 
-                <TextView
-                    android:id="@+id/howto_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Howto"
-                    android:textSize="16dp" />
+                <include layout="@layout/how_to_expansion_panel_layout" />
 
             </LinearLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </LinearLayout>
 

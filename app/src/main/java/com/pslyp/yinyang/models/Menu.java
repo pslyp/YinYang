@@ -83,6 +83,10 @@ public class Menu implements Parcelable {
         return image;
     }
 
+    public void setFavorite(int favorite) {
+        this.favorite = favorite;
+    }
+
     public int getFavorite() {
         return favorite;
     }

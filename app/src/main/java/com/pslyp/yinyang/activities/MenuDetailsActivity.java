@@ -40,26 +40,16 @@ public class MenuDetailsActivity extends AppCompatActivity {
     private void initInstance() {
         nameText = findViewById(R.id.name_text_view);
         ingredientText = findViewById(R.id.ingredient_text_view);
-        howtoText = findViewById(R.id.howto_text_view);
+        howtoText = findViewById(R.id.how_to_text_view);
         menuImage = findViewById(R.id.pic_image_view);
-
-        //Tab Layout
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        ViewPager viewPager = findViewById(R.id.view_pager);
-
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        viewPagerAdapter.addFragment(new IngredientFragment(), "วัตถุดิบ");
-        viewPagerAdapter.addFragment(new HowToFragment(), "วิธีทำ");
-
-        viewPager.setAdapter(viewPagerAdapter);
-
-        tabLayout.setupWithViewPager(viewPager);
-        //Tab Layout
     }
 
     private void getData() {
         Menu detail = getIntent().getParcelableExtra("DETAIL");
+
+        nameText.setText(detail.getName());
+        ingredientText.setText(detail.getIngredient());
+        howtoText.setText(detail.getHowto());
 
 //        Log.e("Get details", detail.getName());
 

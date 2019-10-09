@@ -18,6 +18,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
+        android:foregroundGravity="bottom"
         app:itemIconTint="#000000"
         app:itemTextColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"

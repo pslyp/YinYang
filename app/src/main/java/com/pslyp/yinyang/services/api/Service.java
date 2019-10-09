@@ -37,7 +37,7 @@ public interface Service {
     @POST("update_favorite.php")
     Call<Response> updateFavorite(
             @Field("id") String id,
-            @Field("favorite") String favorite
+            @Field("favorite") Integer favorite
     );
 
     @FormUrlEncoded
